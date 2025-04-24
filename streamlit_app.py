@@ -28,7 +28,7 @@ def main():
     start_time = st.slider(
         "When dou you start?",
         value=datetime(2020, 1, 1, 9, 30),
-        format="MM/Dd/YY - hh:mm",
+        format="MM/DD/YY - hh:mm",
     )
     st.write("Start time", start_time)
 
