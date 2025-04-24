@@ -1,32 +1,36 @@
 import streamlit as st
-import numpy as np
-import pandas as pd
-import altair as alt
+from datetime import datetime, time
 
 
 def main():
-    st.header("st.write")
+    st.header("st.slider")
     # Example 1
-    st.write("Hello, *World!* :sunglasses:")
+    st.subheader("Slider")
+
+    age = st.slider("How old are you?", 0, 130, 25)
+    st.write("I'am ", age, "years old.")
 
     # Example 2
-    st.write(1234)
+    st.subheader("Range slieder")
+
+    values = st.slider("Select a range of values", 0.0, 100.0, (25.0, 75.0))
+    st.write("values", values)
 
     # Example 3
-    df = pd.DataFrame({"first_col": [1, 2, 3, 4], "second_col": [10, 20, 30, 40]})
-    st.write(df)
+    st.subheader("Range time slider")
+    appointment = st.slider(
+        "Schedule your appoinmtment:", value=(time(11, 30), time(12, 45))
+    )
+    st.write("You scheduled for:", appointment)
 
     # Example 4
-    st.write("Below is a Dataframe:", df, "Above is a dataframe.")
-
-    # Example 5
-    df2 = pd.DataFrame(np.random.randn(200, 3), columns=["a", "b", "c"])
-    c = (
-        alt.Chart(df2)
-        .mark_circle()
-        .encode(x="a", y="b", size="c", color="c", tooltip=["a", "b", "c"])
+    st.subheader("Datetime slider")
+    start_time = st.slider(
+        "When dou you start?",
+        value=datetime(2020, 1, 1, 9, 30),
+        format="MM/Dd/YY - hh:mm",
     )
-    st.write(c)
+    st.write("Start time", start_time)
 
 
 if __name__ == "__main__":
