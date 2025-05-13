@@ -2,16 +2,14 @@ import streamlit as st
 
 
 def main():
-    st.header("st.selectbox")
+    st.header("st.multiselect")
 
-    option = st.selectbox(
-        "What is your favorite color?",
-        ("Blue", "Red", "Green"),
-        index=None,
-        placeholder="Choose an option",
+    options = st.multiselect(
+        "What are your favorite colors",
+        ["Greean", "Yellow", "Red", "Blue"],
     )
 
-    st.write("Your favorie color is ", option)
+    st.write("You selected ", options)
 
 
 if __name__ == "__main__":
