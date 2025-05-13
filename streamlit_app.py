@@ -2,14 +2,20 @@ import streamlit as st
 
 
 def main():
-    st.header("st.multiselect")
+    st.header("st.checkbox")
 
-    options = st.multiselect(
-        "What are your favorite colors",
-        ["Greean", "Yellow", "Red", "Blue"],
-    )
+    st.write("What would you like to order?")
 
-    st.write("You selected ", options)
+    icecream = st.checkbox("Ice cream", key="icecream")
+    coffee = st.checkbox("Coffee")
+    cola = st.checkbox("Cola")
+
+    if icecream:
+        st.write("Great! Here's come more")
+    if coffee:
+        st.write("Okay, here's some coffee")
+    if cola:
+        st.write("Here you go")
 
 
 if __name__ == "__main__":
