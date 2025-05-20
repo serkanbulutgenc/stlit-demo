@@ -1,40 +1,29 @@
 import streamlit as st
-import numpy as np
-import pandas as pd
-from time import perf_counter
 
 
-@st.cache_data(show_spinner=True)
-def load_data_a():
-    print("cache data")
-    df = pd.DataFrame(np.random.randn(2000000, 5), columns=[*"abcde"])
-    return df
+def lbs_to_kg():
+    st.session_state.kg = st.session_state.lbs / 2.2046
 
 
-def load_data_b():
-    print("not caching data")
-    df = pd.DataFrame(np.random.randn(2000000, 5), columns=[*"abcde"])
-    return df
+def kg_to_lbs():
+    st.session_state.lbs = st.session_state.kg * 2.2046
 
 
 def main():
-    a0 = perf_counter()
+    st.title("st.session_state")
 
-    st.title("st.cache")
+    st.header("Input")
 
-    st.subheader("Using st.cache")
+    col1, spacer, col2 = st.columns([2, 1, 1])
 
-    st.write(load_data_a())
-    a1 = perf_counter()
-    st.info(a1 - a0)
+    with col1:
+        pounds = st.number_input("Pounds:", key="lbs", on_change=lbs_to_kg)
 
-    a0 = perf_counter()
+    with col2:
+        kilogram = st.number_input("Kilograms", key="kg", on_change=kg_to_lbs)
 
-    st.subheader("Not Using st.cache")
-
-    st.write(load_data_b())
-    a1 = perf_counter()
-    st.info(a1 - a0)
+    st.header("Output")
+    st.write("st.session_state object: ", st.session_state)
 
 
 if __name__ == "__main__":
