@@ -1,23 +1,46 @@
 import streamlit as st
-import pandas as pd
-import time
 
 
 def main():
-    st.title("st.progress")
+    st.title("st.form")
 
-    with st.expander("About this app"):
-        st.write(
-            "You can now display the progress of your calculations in a Streamlit app with the `st.progress`"
+    st.header("1. Example of usin `with` notation")
+    st.subheader("Coffee machine")
+
+    with st.form("my_form"):
+        st.subheader("**Order your coffee**")
+
+        coffee_bean_val = st.selectbox("Coffee bean", ["Arabica", "Robusta"])
+        coffee_roast_val = st.selectbox("Coffee roast", ["light", "Medium", "Dark"])
+        brewing_val = st.selectbox(
+            "Brewing method",
+            ["Aeropress", "Drip", "French press", "Moka pot", "Siphon"],
         )
+        serving_type_val = st.selectbox("Serving format", ["Hot", "Iced", "Frappe"])
+        own_cup = st.checkbox("Bring own cup")
 
-    my_bar = st.progress(0)
+        submitted = st.form_submit_button("Submit")
 
-    for percent_complete in range(100):
-        time.sleep(0.05)
-        my_bar.progress(percent_complete + 1)
+        if submitted:
+            st.markdown(f"""
+            You have ordered:
+            - Coffee bean `{coffee_bean_val}`
+            - Coffee roast `{coffee_roast_val}`
+            - Brewing: ̀`{brewing_val}`
+            - Serving type: `{serving_type_val}`
+            - Bring own cup : `{own_cup}`
 
-    st.balloons()
+        """)
+        else:
+            st.write("Place your order")
+
+    st.header("2. Example of object notation")
+
+    form = st.form("my_form_2")
+    selected_val = form.slider("Select a value")
+    form.form_submit_button("Submit")
+
+    st.write("Selected value :", selected_val)
 
 
 if __name__ == "__main__":
