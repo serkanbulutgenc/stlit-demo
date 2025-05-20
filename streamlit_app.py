@@ -2,45 +2,30 @@ import streamlit as st
 
 
 def main():
-    st.title("st.form")
+    st.title("st.experimental_get_query_params")
 
-    st.header("1. Example of usin `with` notation")
-    st.subheader("Coffee machine")
-
-    with st.form("my_form"):
-        st.subheader("**Order your coffee**")
-
-        coffee_bean_val = st.selectbox("Coffee bean", ["Arabica", "Robusta"])
-        coffee_roast_val = st.selectbox("Coffee roast", ["light", "Medium", "Dark"])
-        brewing_val = st.selectbox(
-            "Brewing method",
-            ["Aeropress", "Drip", "French press", "Moka pot", "Siphon"],
+    with st.expander("about the app"):
+        st.write(
+            "`st.experimental_get_query_params` allows the retrieval of query parameters directly from the URL of the user's browser."
         )
-        serving_type_val = st.selectbox("Serving format", ["Hot", "Iced", "Frappe"])
-        own_cup = st.checkbox("Bring own cup")
 
-        submitted = st.form_submit_button("Submit")
+    st.header("1. Instructions")
+    st.markdown("""
+    In the above URL bar of your internet browser, append the folowing:
+                `?firstname=Jack&surname=Beanstalk`
+                after the base URL `http://share.streamlit.io/dataprofessor/st.experimental_get_query_params/`
+such that it becomes `http://share.streamlit.io/dataprofessor/st.experimental_get_query_params/?firstname=Jack&surname=Beanstalk`
 
-        if submitted:
-            st.markdown(f"""
-            You have ordered:
-            - Coffee bean `{coffee_bean_val}`
-            - Coffee roast `{coffee_roast_val}`
-            - Brewing: ̀`{brewing_val}`
-            - Serving type: `{serving_type_val}`
-            - Bring own cup : `{own_cup}`
+""")
 
-        """)
-        else:
-            st.write("Place your order")
+    st.header("2. Contents of st.experimantal_get_query_params")
+    st.write(st.query_params)
 
-    st.header("2. Example of object notation")
+    st.header("3. Retrieving and dispalying information from the URL")
+    firstname = st.query_params["firstname"]
+    lastname = st.query_params["lastname"]
 
-    form = st.form("my_form_2")
-    selected_val = form.slider("Select a value")
-    form.form_submit_button("Submit")
-
-    st.write("Selected value :", selected_val)
+    st.write(f"Hello **{firstname} {lastname}** how are you?")
 
 
 if __name__ == "__main__":
